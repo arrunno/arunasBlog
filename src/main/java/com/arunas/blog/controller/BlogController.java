@@ -1,6 +1,8 @@
 package com.arunas.blog.controller;
 
+import com.arunas.blog.service.PostService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,8 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class BlogController {
 
+    private final PostService postService;
+
+    public BlogController(PostService postService){
+        this.postService = postService;
+    }
+
     @GetMapping("")
-    public String initHelloController(){
+    public String initHelloController(Model model){
+
+        model.addAttribute("posts", postService.loadUserPosts());
         return "blog";
     }
 
@@ -21,6 +31,13 @@ public class BlogController {
     @GetMapping("login")
     public String loginController(){
         return "login";
+    }
+
+    @GetMapping("fillDbPosts")
+    public String fillPostsController(){
+
+        postService.savePosts();
+        return "blog";
     }
 
 

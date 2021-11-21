@@ -7,5 +7,34 @@
 <body>
     <div><a href="login">Prisijunkite</a></div>
     <h1 th:text="${'Sveiki, ' + param.name + ', atvykę į Arūno blogą.'}">Sveiki, atvykę į Arūno blogą.</h1>
+    <div th:if="${#lists.isEmpty(posts)}">Posts list is empty :|</div>
+
+    <div th:unless="${#lists.isEmpty(posts)}">
+        <table>
+            <thead>
+            <tr>
+                <th>Post</th>
+                <th></th>
+                <th>Comments</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="post: ${posts}">
+                <tr>
+                    <td colspan="3" th:text="|${post.id}, ${post.topic},  ${post.contents}, ${post.postDate}, ${post.authorEmail}|"></td>
+                    <td></td>
+                </tr>
+                <tr th:each="comment: ${post.comments}">
+                    <td></td>
+                    <td colspan="3" th:text="${comment}"></td>
+<!--                    <td></td>-->
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+
+
 </body>
 </html>
