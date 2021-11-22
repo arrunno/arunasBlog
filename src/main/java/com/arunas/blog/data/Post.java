@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -29,7 +30,11 @@ public class Post {
     private String topic;
     private String contents;
     private String authorEmail;
-    @OneToMany
-    @JoinColumn(name="commentId", referencedColumnName = "id")
+    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_post", referencedColumnName = "id")
     Set<Comment> comments = new HashSet<>();
+
+//    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+//    private Collection<Comment> comments;
+
 }
