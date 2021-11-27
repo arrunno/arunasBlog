@@ -21,27 +21,8 @@ public class PostService {
         this.jpaPostRepository = jpaPostRepository;
     }
 
-//    public List<Post> loadUserPosts(){
-//        return postRepository.getUserPosts();
-//    }
-
-//    public List<Post> getUserPostsL(){
-//        List<Post> postsL = new ArrayList<>();
-//        for(Post post : this.fillPosts()) {
-//            postsL.add(post);
-//        }
-//        return postsL;
-//    }
-
     public void fillPosts(){
-//    public Map<UUID, Post> fillPosts(){
         Map<UUID, Post> posts = new HashMap<>();
-//        for (int i=1; i<=3; i++) {
-        //d2192075-42e6-4aff-9636-8e0e7eeb1116, Post 3, Here goes contents 3, 2021-11-13T10:13, arunas@arunas.com
-        //66b1252e-4a72-45af-ba4a-a8c9e3f45130, Post 2, Here goes contents 2, 2021-11-12T10:12, arunas@arunas.com
-        //26f64f45-cb46-4d42-b2b9-b83b76d89265, Post 1, Here goes contents 1, 2021-11-11T10:11, arunas@arunas.com
-
-//        UUID uuid = UUID.fromString("d2192075-42e6-4aff-9636-8e0e7eeb1116");
         String uuidString = "d2192075-42e6-4aff-9636-8e0e7eeb1116";
         LocalDateTime dateTime1 = LocalDateTime.of(2021, 11, 10, 10, 10);
         String topic1 = "Post 1"; // + i;
@@ -55,22 +36,13 @@ public class PostService {
         Set<Comment> commentsSet = new HashSet<>(Arrays.asList(comment1, comment2, comment3));
 
         post.setComments(commentsSet);
-
         jpaPostRepository.save(post);
-
-        Post pos = jpaPostRepository.getById(uuidString);
 
     }
 
     public void addComment(String uuidString, Comment comment){
 
         Post post = this.getPostById(uuidString);
-//        Post post;
-//        if(postOpt.isPresent()){
-//            post = postOpt.get();
-//        } else {
-//            post = new Post();
-//        }
         Set<Comment> comments = post.getComments();
         comment.setPost(post);
         comments.add(comment);
@@ -84,16 +56,8 @@ public class PostService {
 
 
     public List<Post> getPosts(){
-//        List<Post> allPosts = new ArrayList<>();
         List<Post> allPosts = jpaPostRepository.findAll();
         return allPosts;
-    }
-
-    public void savePosts(){
-//        List<Post> posts = this.loadUserPosts();
-//        for(Post post : posts){
-//            jpaPostRepository.save(post);
-//        }
     }
 
     public Post getPostById(String uuidString){
