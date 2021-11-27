@@ -22,7 +22,7 @@
             <tbody>
             <div th:each="post: ${posts}">
                 <tr>
-                    <td colspan="3" th:text="|${post.id}, ${post.topic},  ${post.contents}, ${post.postDate}, ${post.authorEmail}|"></td>
+                    <td colspan="3" th:with="postId=${post.id}" th:text="|${postId}, ${post.topic},  ${post.contents}, ${post.postDate}, ${post.authorEmail}|"></td>
                     <td></td>
                 </tr>
                 <tr th:each="comment: ${post.comments}">
@@ -32,9 +32,9 @@
                 <tr>
                     <td></td>
                     <td colspan="3">
-                        <form method="post">
+                        <form method="post" th:action="@{/createComment}" th:object="${comment}">
                             <textarea class="col-md-6 margintop30" placeholder="Comment" name="comment"></textarea>
-<!--                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+                            <input type="hidden" th:value="${post.id}" th:attr="name='postId'" />
                             <div class="col-md-1">
                                 <button class="btn btn-primary margintop30" type="submit">Comment</button>
                             </div>

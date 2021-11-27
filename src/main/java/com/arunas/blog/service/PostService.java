@@ -74,7 +74,6 @@ public class PostService {
         Set<Comment> comments = post.getComments();
         comment.setPost(post);
         comments.add(comment);
-
         post.setComments(comments);
         jpaPostRepository.save(post);
     }

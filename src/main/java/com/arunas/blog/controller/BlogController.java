@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,7 +38,7 @@ public class BlogController {
 
 //        model.addAttribute("posts", postService.loadUserPosts());
         model.addAttribute("posts", postService.getPosts());
-        return "";
+        return "blog";
     }
 
     @GetMapping("createPost")
@@ -85,6 +87,22 @@ public class BlogController {
         model.addAttribute("posts", postService.getPosts());
         return "redirect:/";
     }
+
+//    @RequestMapping(value = "/createComment", method = RequestMethod.POST)
+//    public String createCommentController(Model model){ //, HttpServletRequest rq){
+//
+////        model.addAttribute("comment", rq.getParameter("comment"));
+////        model.addAttribute("postId", rq.getParameter("id"));
+//        return "redirect:/comment";
+//    }
+//
+//    @RequestMapping(value = "/comment", method = RequestMethod.GET)
+//    public String showComment(Model model){ //, HttpServletRequest rq){
+//
+////        model.addAttribute("comment", rq.getParameter("comment"));
+////        model.addAttribute("postId", rq.getParameter("id"));
+//        return "comment";
+//    }
 
 
 }
