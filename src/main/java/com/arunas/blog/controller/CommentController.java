@@ -1,7 +1,6 @@
 package com.arunas.blog.controller;
 
 import com.arunas.blog.data.Comment;
-import com.arunas.blog.data.Post;
 import com.arunas.blog.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,14 +24,10 @@ public class CommentController {
 
         model.addAttribute("comment", rq.getParameter("comment"));
         String uuidSpostId = rq.getParameter("postId");
-//        Post post = postService.getPostById(uuidString);
         Comment comment = new Comment(null, 1L, rq.getParameter("comment"), LocalDateTime.now(), null);
         postService.addComment(uuidSpostId, comment);
         model.addAttribute("posts", postService.getPosts());
         return "redirect:/";
-
-
-//        return "redirect:/comment";
     }
 
     @RequestMapping(value = "/comment", method = RequestMethod.GET)
