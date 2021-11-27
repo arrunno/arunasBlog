@@ -1,5 +1,6 @@
 package com.arunas.blog.controller;
 
+import com.arunas.blog.data.Comment;
 import com.arunas.blog.data.Post;
 import com.arunas.blog.service.PostService;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/")
@@ -36,13 +39,13 @@ public class BlogController {
         return "";
     }
 
-    @GetMapping("create")
+    @GetMapping("createPost")
     public String loadPostForm(Model model){
         model.addAttribute("post", new Post());
         return "post";
     }
 
-    @PostMapping("create")
+    @PostMapping("createPost")
     public String createPost(Post post, Model model){
 
 //        System.out.println(post.getTopic() + " " + post.getContents());
@@ -66,9 +69,21 @@ public class BlogController {
     @GetMapping("fillDbPosts")
     public String fillPostsController(Model model){
 
-        postService.savePosts();
+        postService.fillPosts();
         model.addAttribute("posts", postService.getPosts());
         return "blog";
+    }
+
+    @GetMapping("addComment")
+    public String addCommentController(Model model){
+//        String uuidString = "d2192075-42e6-4aff-9636-8e0e7eeb1116";
+//        UUID uuid = UUID.fromString("d2192075-42e6-4aff-9636-8e0e7eeb1116");
+        String uuidString = "d2192075-42e6-4aff-9636-8e0e7eeb1116";
+//        Post post = postService.getPostById(uuid);
+        Comment comment = new Comment(null, 1L, "Some additional comment", LocalDateTime.now(), null);
+        postService.addComment(uuidString, comment);
+        model.addAttribute("posts", postService.getPosts());
+        return "redirect:/";
     }
 
 

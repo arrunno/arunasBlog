@@ -23,9 +23,10 @@ public class Comment {
     private String contents;
     private LocalDateTime postDate;
 
-//    @ManyToOne()
-//    @JoinColumn(name = "pos_id")
-//    private Post post;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="post_id", referencedColumnName = "id") //// post table id
+    @OrderBy("id")
+    private Post post;
 
     @Override
     public String toString() {

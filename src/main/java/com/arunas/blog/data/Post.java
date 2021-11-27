@@ -9,32 +9,42 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="Posts")
+@Table(name="posts")
 public class Post {
     @Id
 //    @GeneratedValue(generator = "uuid2")
 //    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-//    @Column(name = "id", columnDefinition = "VARCHAR(255)")
-    private UUID id;
+    @Column(updatable = false)
+    private String id;
     private LocalDateTime postDate;
     private String topic;
     private String contents;
     private String authorEmail;
-    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_post", referencedColumnName = "id")
-    Set<Comment> comments = new HashSet<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OrderBy("postDate")
+    private Set<Comment> comments;
 
 //    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 //    private Collection<Comment> comments;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return Objects.equals(id, post.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

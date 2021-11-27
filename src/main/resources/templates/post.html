@@ -7,7 +7,7 @@
 </head>
 <body>
 Hello, Post update
-<form method="post" th:object="${post}">
+<form method="post" th:object="${post}"> <!--  th:action="@{/savePost}" -->
     <label>User email</label>
     <input type="text" palceholder="Author Email" th:field="*{authorEmail}">
     <label>Topic</label>
