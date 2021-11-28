@@ -54,7 +54,6 @@ public class PostService {
         return jpaPostRepository.getById(uuidString);
     }
 
-
     public List<Post> getPosts(){
         List<Post> allPosts = jpaPostRepository.findAll();
         return allPosts;
@@ -68,6 +67,10 @@ public class PostService {
         String uuidString = UUID.randomUUID().toString();
         post.setId(uuidString);
         jpaPostRepository.save(post);
+    }
+
+    public void deletePost(String id) {
+        jpaPostRepository.deleteById(id);
     }
 
 }

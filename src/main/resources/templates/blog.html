@@ -22,12 +22,13 @@
             <tbody>
             <div th:each="post: ${posts}">
                 <tr>
-                    <td colspan="3" th:with="postId=${post.id}" th:text="|${postId}, ${post.topic},  ${post.contents}, ${post.postDate}, ${post.authorEmail}|"></td>
-                    <td></td>
+                    <td colspan="3" th:text="|${post.id}, ${post.topic},  ${post.contents}, ${post.postDate}, ${post.authorEmail}|"></td>
+                    <td><a th:href="@{/posts/{id}/delete(id=${post.id})}">Delete</a></td>
                 </tr>
                 <tr th:each="comment: ${post.comments}">
                     <td></td>
-                    <td colspan="3" th:text="${comment}"></td>
+                    <td colspan="2" th:text="${comment}"></td>
+                    <td><a th:href="@{/comment/{id}/delete(id=${comment.id})}">Delete</a></td>
                 </tr>
                 <tr>
                     <td></td>

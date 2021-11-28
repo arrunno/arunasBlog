@@ -23,10 +23,16 @@ public class Comment {
     private String contents;
     private LocalDateTime postDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="post_id", referencedColumnName = "id") //// post table id
     @OrderBy("id")
     private Post post;
+
+    @PreRemove
+    public void dismissPost(){
+        this.post.dismissComment(this);
+        this.post = null;
+    }
 
     @Override
     public String toString() {

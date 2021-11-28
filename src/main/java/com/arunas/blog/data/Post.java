@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -30,10 +31,19 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @OrderBy("postDate")
-    private Set<Comment> comments;
+    private Set<Comment> comments = new HashSet<>(0);
 
-//    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-//    private Collection<Comment> comments;
+    @PreRemove
+    public void deleteCommentFromPost(){
+        this.comments.forEach(comment -> comment.dismissPost());
+        this.comments.clear();
+    }
+
+    public void dismissComment(Comment comment){
+        this.comments.remove(comment);
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
