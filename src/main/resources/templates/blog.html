@@ -5,8 +5,9 @@
     <title>Arunas' Blog</title>
 </head>
 <body>
-    <div><a href="login">Prisijunkite</a></div>
-    <h1 th:text="${'Sveiki, ' + param.name + ', atvykę į Arūno blogą.'}">Sveiki, atvykę į Arūno blogą.</h1>
+    <div><a href="/login">Prisijunkite</a></div>
+    <div><a href="/logout">Atsijunkite</a></div>
+    <h1 th:text="${'Sveiki, ' + loggedUser + ', atvykę į Arūno blogą.'}">Sveiki, atvykę į Arūno blogą.</h1>
     <div th:if="${#lists.isEmpty(posts)}">Posts list is empty :|</div>
 
     <div th:unless="${#lists.isEmpty(posts)}">
@@ -23,17 +24,17 @@
             <div th:each="post: ${posts}">
                 <tr>
                     <td colspan="3" th:text="|${post.id}, ${post.topic},  ${post.contents}, ${post.postDate}, ${post.authorEmail}|"></td>
-                    <td><a th:href="@{/posts/{id}/delete(id=${post.id})}">Delete</a></td>
+                    <td><a th:href="@{/private/posts/{id}/delete(id=${post.id})}">Delete</a></td>
                 </tr>
                 <tr th:each="comment: ${post.comments}">
                     <td></td>
                     <td colspan="2" th:text="${comment}"></td>
-                    <td><a th:href="@{/comment/{id}/delete(id=${comment.id})}">Delete</a></td>
+                    <td><a th:href="@{/private/comment/{id}/delete(id=${comment.id})}">Delete</a></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td colspan="3">
-                        <form method="post" th:action="@{/createComment}" th:object="${comment}">
+                        <form method="post" th:action="@{/private/createComment}" th:object="${comment}">
                             <textarea class="col-md-6 margintop30" placeholder="Comment" name="comment"></textarea>
                             <input type="hidden" th:value="${post.id}" th:attr="name='postId'" />
                             <div class="col-md-1">
@@ -47,7 +48,7 @@
         </table>
 
     </div>
-    <div><a th:href="@{/createPost}">Create a new post</a></div>
+    <div><a th:href="@{/private/createPost}">Create a new post</a></div>
 
 
 </body>

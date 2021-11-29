@@ -1,17 +1,18 @@
 package com.arunas.blog.data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
-@Table(name="users")
 public class User {
-    @Id
-    String email;
-    String Name;
-    String Surname;
-    String personId;
-    String password;
-    UserStatus status;
+
+    public static String getLoggedUser(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String loggedUser;
+        if (principal instanceof UserDetails) {
+            loggedUser = ((UserDetails)principal).getUsername();
+        } else {
+            loggedUser = "guest";
+        }
+        return loggedUser;
+    }
 }

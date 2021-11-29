@@ -20,11 +20,7 @@ public class CommentService {
     public void deleteComment(Long id) {
 
         Comment comment = this.getCommentById(id);
-//        Post post = comment.getPost();
-//        comment.setPost(null);
-//        jpaCommentRepository.save(comment);
         jpaCommentRepository.delete(comment);
-//        jpaPostRepository.save(post);
     }
 
     public Comment getCommentById(long id){

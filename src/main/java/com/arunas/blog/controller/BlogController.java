@@ -1,20 +1,19 @@
 package com.arunas.blog.controller;
 
 import com.arunas.blog.data.Post;
+import com.arunas.blog.data.User;
 import com.arunas.blog.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.UUID;
 
 @Controller
-@RequestMapping("/")
+//@RequestMapping("/")
 public class BlogController {
 
     private final PostService postService;
@@ -23,53 +22,61 @@ public class BlogController {
         this.postService = postService;
     }
 
+    @GetMapping("/private/login")
+    public String postsAfterLogin(){
+        return "redirect:/public/posts";
+    }
+
     @GetMapping("")
     public String initPostsController(Model model){
 
         model.addAttribute("posts", postService.getPosts());
+        model.addAttribute("loggedUser", User.getLoggedUser());
         return "blog";
     }
 
-    @GetMapping("posts")
+    @GetMapping("/public/posts")
     public String showPosts(Model model){
         model.addAttribute("posts", postService.getPosts());
+        model.addAttribute("loggedUser", User.getLoggedUser());
         return "blog";
     }
 
-    @GetMapping("/posts/{id}/delete")
+    @GetMapping("private/posts/{id}/delete")
     public String deletePost(@PathVariable String id) {
         postService.deletePost(id);
 
-        return "redirect:/";
+        return "redirect:/public/posts";
     }
 
-    @GetMapping("createPost")
+    @GetMapping("private/createPost")
     public String loadPostForm(Model model){
         model.addAttribute("post", new Post());
         return "post";
     }
 
-    @PostMapping("createPost")
+    @PostMapping("private/createPost")
     public String createPost(Post post, Model model){
 
         post.setPostDate(LocalDateTime.now());
         post.setComments(new HashSet<>());
+        post.setAuthorEmail(User.getLoggedUser());
         postService.savePost(post);
         model.addAttribute("posts", postService.getPosts());
-        return "redirect:/";
+        return "redirect:/public/posts";
     }
 
-    @GetMapping("contacts")
+    @GetMapping("/public/contacts")
     public String showContacts(){
         return "contacts";
     }
 
-    @GetMapping("login")
-    public String loginController(){
-        return "login";
-    }
+//    @GetMapping("/public/login")
+//    public String loginController(){
+//        return "__login_";
+//    }
 
-    @GetMapping("fillDbPosts")
+    @GetMapping("/private/fillDbPosts")
     public String fillPostsController(Model model){
 
         postService.fillPosts();

@@ -1,6 +1,7 @@
 package com.arunas.blog.controller;
 
 import com.arunas.blog.data.Comment;
+import com.arunas.blog.data.User;
 import com.arunas.blog.service.CommentService;
 import com.arunas.blog.service.PostService;
 import org.springframework.stereotype.Controller;
@@ -24,18 +25,18 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @RequestMapping(value = "/createComment", method = RequestMethod.POST)
-    public String createCommentController(Model model, HttpServletRequest rq){
+    @RequestMapping(value = "/private/createComment", method = RequestMethod.POST)
+    public String createComment(Model model, HttpServletRequest rq){
 
         model.addAttribute("comment", rq.getParameter("comment"));
         String uuidSpostId = rq.getParameter("postId");
-        Comment comment = new Comment(null, 1L, rq.getParameter("comment"), LocalDateTime.now(), null);
+        Comment comment = new Comment(null, User.getLoggedUser(), rq.getParameter("comment"), LocalDateTime.now(), null);
         postService.addComment(uuidSpostId, comment);
         model.addAttribute("posts", postService.getPosts());
-        return "redirect:/";
+        return "redirect:/public/posts";
     }
 
-    @RequestMapping(value = "/comment", method = RequestMethod.GET)
+    @RequestMapping(value = "/public/comment", method = RequestMethod.GET)
     public String showComment(Model model, HttpServletRequest rq){
 
         model.addAttribute("comment", rq.getParameter("comment"));
@@ -43,12 +44,12 @@ public class CommentController {
         return "comment";
     }
 
-    @GetMapping("comment/{id}/delete")
+    @GetMapping("/private/comment/{id}/delete")
     public String deleteComment(@PathVariable Long id) {
 
         commentService.deleteComment(id);
 
-        return "redirect:/";
+        return "redirect:/public/posts";
     }
 
 }

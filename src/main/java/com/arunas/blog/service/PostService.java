@@ -30,9 +30,9 @@ public class PostService {
         String authorEmail = "arunas@arunas.com";
         Post post = new Post(uuidString, dateTime1, topic1, contents1, authorEmail, null);
 
-        Comment comment1 = new Comment(null, 1L, "Some praising comment1", LocalDateTime.of(2021, 11, 11, 15, 10), post);
-        Comment comment2 = new Comment(null, 2L, "Some praising comment2", LocalDateTime.of(2021, 11, 12, 11, 20), post);
-        Comment comment3 = new Comment(null, 3L, "Some criticizing comment3", LocalDateTime.of(2021, 11, 15, 13, 33), post);
+        Comment comment1 = new Comment(null, "arunas@admin.com", "Some praising comment1", LocalDateTime.of(2021, 11, 11, 15, 10), post);
+        Comment comment2 = new Comment(null, "ona@user.com", "Some praising comment2", LocalDateTime.of(2021, 11, 12, 11, 20), post);
+        Comment comment3 = new Comment(null, "petras@user.com", "Some criticizing comment3", LocalDateTime.of(2021, 11, 15, 13, 33), post);
         Set<Comment> commentsSet = new HashSet<>(Arrays.asList(comment1, comment2, comment3));
 
         post.setComments(commentsSet);
