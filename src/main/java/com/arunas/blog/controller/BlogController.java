@@ -3,6 +3,7 @@ package com.arunas.blog.controller;
 import com.arunas.blog.data.Post;
 import com.arunas.blog.data.User;
 import com.arunas.blog.service.PostService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 
 @Controller
-//@RequestMapping("/")
 public class BlogController {
 
     private final PostService postService;

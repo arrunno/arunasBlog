@@ -11,6 +11,25 @@
 </head>
 <body>
 
+<nav th:fragment="navbar"
+     class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li th:replace="fragments/fragments :: languageSelector"></li>
+            </ul>
+            <ul sec:authorize="isAnonymous()" class="d-flex navbar-nav mb-2 mb-lg-0 me-5">
+                <li><a class="nav-link" th:href="@{/Login}" th:text="#{com.arunas.blog.navbar.login}"></a></li>
+                <li><a class="nav-link" th:href="@{/logout}" th:text="#{com.arunas.blog.navbar.logout}"></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <li th:fragment="languageSelector"
     class="nav-item dropdown">
@@ -33,7 +52,6 @@
 
 <footer th:fragment="footer"
         class="footer mt-auto py-3" style="background-color: #e3f2fd;">
-<!--        bg-dark">-->
     <div class="container">
         <span th:align="center" class="text-muted">2021 ArunasT</span>
     </div>
