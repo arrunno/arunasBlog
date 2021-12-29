@@ -44,6 +44,7 @@ public class CommentController {
         return "comment";
     }
 
+//    @preAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/private/comment/{id}/delete")
     public String deleteComment(@PathVariable Long id) {
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<li th:fragment="languageSelector"
+    class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle"
+       href="#" id="navbarDropdownMenuLink"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false"
+       th:text="#{com.arunas.blog.languages}">
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <li><a class="dropdown-item"
+               th:href="${#httpServletRequest.requestURI} + '?lang=EN'"
+               th:text="#{com.arunas.blog.en}"></a></li>
+        <li><a class="dropdown-item"
+               th:href="${#httpServletRequest.requestURI} + '?lang=LT'"
+               th:text="#{com.arunas.blog.lt}"></a></li>
+    </ul>
+</li>
+
+<footer th:fragment="footer"
+        class="footer mt-auto py-3" style="background-color: #e3f2fd;">
+<!--        bg-dark">-->
+    <div class="container">
+        <span th:align="center" class="text-muted">2021 ArunasT</span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/language.js"></script>
+</footer>
+
+</body>
+</html>

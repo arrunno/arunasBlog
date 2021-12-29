@@ -71,11 +71,6 @@ public class BlogController {
         return "contacts";
     }
 
-//    @GetMapping("/public/login")
-//    public String loginController(){
-//        return "__login_";
-//    }
-
     @GetMapping("/private/fillDbPosts")
     public String fillPostsController(Model model){
 

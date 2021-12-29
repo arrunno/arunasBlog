@@ -27,7 +27,7 @@ public class PostService {
         LocalDateTime dateTime1 = LocalDateTime.of(2021, 11, 10, 10, 10);
         String topic1 = "Post 1"; // + i;
         String contents1 = "Here goes contents  1";// + i;
-        String authorEmail = "arunas@arunas.com";
+        String authorEmail = "arunas@admin.com";
         Post post = new Post(uuidString, dateTime1, topic1, contents1, authorEmail, null);
 
         Comment comment1 = new Comment(null, "arunas@admin.com", "Some praising comment1", LocalDateTime.of(2021, 11, 11, 15, 10), post);
@@ -37,7 +37,6 @@ public class PostService {
 
         post.setComments(commentsSet);
         jpaPostRepository.save(post);
-
     }
 
     public void addComment(String uuidString, Comment comment){
